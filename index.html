@@ -1,0 +1,1470 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mariam Douamba - Data Engineer Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #0f4c75;
+            --accent-bright: #3282b8;
+            --text: #e8e8e8;
+            --text-muted: #a8a8b8;
+            --background: #0f0f1e;
+            --card-bg: #1a1a2e;
+            --border: #2a2a3e;
+            --success: #4caf50;
+            --warning: #ff9800;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Work Sans', sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.03;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 2px, var(--accent) 2px, var(--accent) 4px),
+                repeating-linear-gradient(90deg, transparent, transparent 2px, var(--accent) 2px, var(--accent) 4px);
+            background-size: 50px 50px;
+            animation: slidePattern 20s linear infinite;
+        }
+
+        @keyframes slidePattern {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .bg-glow {
+            position: fixed;
+            top: -50%;
+            right: -20%;
+            width: 80%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(15, 76, 117, 0.15) 0%, transparent 70%);
+            z-index: -1;
+            animation: float 15s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-100px, 100px) rotate(10deg); }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 15, 30, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 1.2rem 0;
+            z-index: 1000;
+            animation: slideDown 0.7s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        nav .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: -0.5px;
+        }
+
+        nav .logo span {
+            color: var(--accent-bright);
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            letter-spacing: 0.3px;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-bright);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--accent-bright);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 5rem;
+            position: relative;
+        }
+
+        .hero-content {
+            animation: fadeInUp 1s ease-out;
+            max-width: 800px;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-tag {
+            display: inline-block;
+            background: rgba(50, 130, 184, 0.1);
+            color: var(--accent-bright);
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(50, 130, 184, 0.3);
+            animation: fadeInUp 1s ease-out 0.2s backwards;
+        }
+
+        .hero h1 {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 4.5rem;
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 1s ease-out 0.4s backwards;
+            letter-spacing: -1px;
+        }
+
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, var(--accent-bright) 0%, #64b5f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+            animation: fadeInUp 1s ease-out 0.6s backwards;
+            max-width: 700px;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease-out 0.8s backwards;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            letter-spacing: 0.3px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--accent-bright);
+            color: white;
+            box-shadow: 0 4px 20px rgba(50, 130, 184, 0.4);
+        }
+
+        .btn-primary:hover {
+            background: #64b5f6;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 30px rgba(50, 130, 184, 0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text);
+            border: 2px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-bright);
+            color: var(--accent-bright);
+            transform: translateY(-3px);
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            animation: fadeInUp 1s ease-out 1s backwards;
+        }
+
+        .stat-item {
+            border-left: 3px solid var(--accent-bright);
+            padding-left: 1.5rem;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent-bright);
+            font-family: 'Libre Baskerville', serif;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 8rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-tag {
+            color: var(--accent-bright);
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .section-title {
+            font-family: 'Libre Baskerville', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 1.5rem;
+        }
+
+        .section-description {
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-bright), #64b5f6);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+            transform-origin: left;
+        }
+
+        .skill-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .skill-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: 0 12px 40px rgba(50, 130, 184, 0.15);
+        }
+
+        .skill-icon {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.2rem;
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .skill-tag {
+            background: rgba(50, 130, 184, 0.08);
+            color: var(--accent-bright);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 1px solid rgba(50, 130, 184, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            background: rgba(50, 130, 184, 0.15);
+            border-color: var(--accent-bright);
+            transform: translateY(-2px);
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .project-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-bright), #64b5f6);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+            transform-origin: left;
+        }
+
+        .project-card:hover::after {
+            transform: scaleX(1);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: 0 15px 50px rgba(50, 130, 184, 0.2);
+        }
+
+        .project-header {
+            padding: 2rem 2rem 0;
+        }
+
+        .project-company {
+            display: inline-block;
+            background: rgba(50, 130, 184, 0.1);
+            color: var(--accent-bright);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(50, 130, 184, 0.2);
+        }
+
+        .project-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .project-content {
+            padding: 0 2rem 2rem;
+        }
+
+        .project-context {
+            margin-bottom: 1.5rem;
+        }
+
+        .project-context h4 {
+            color: var(--accent-bright);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-context p {
+            color: var(--text-muted);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .project-results {
+            background: rgba(50, 130, 184, 0.05);
+            border: 1px solid rgba(50, 130, 184, 0.15);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .project-results h4 {
+            color: var(--success);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.8rem;
+        }
+
+        .result-items {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .result-item {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .result-item::before {
+            content: '✓';
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .tech-badge {
+            background: rgba(50, 130, 184, 0.08);
+            color: var(--accent-bright);
+            padding: 0.35rem 0.9rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border: 1px solid rgba(50, 130, 184, 0.2);
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .project-link {
+            flex: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.7rem 1.2rem;
+            background: rgba(50, 130, 184, 0.1);
+            color: var(--accent-bright);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(50, 130, 184, 0.2);
+        }
+
+        .project-link:hover {
+            background: rgba(50, 130, 184, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Experience Timeline */
+        .experience-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 3rem;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .timeline-date {
+            min-width: 140px;
+            text-align: right;
+            padding-top: 0.5rem;
+        }
+
+        .timeline-date span {
+            display: inline-block;
+            background: rgba(50, 130, 184, 0.1);
+            color: var(--accent-bright);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid rgba(50, 130, 184, 0.2);
+        }
+
+        .timeline-content {
+            flex: 1;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            position: relative;
+            transition: all 0.4s ease;
+        }
+
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            left: -3rem;
+            top: 2rem;
+            width: 2rem;
+            height: 2px;
+            background: var(--border);
+        }
+
+        .timeline-content:hover {
+            transform: translateX(10px);
+            border-color: var(--accent);
+            box-shadow: 0 8px 30px rgba(50, 130, 184, 0.15);
+        }
+
+        .timeline-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        .timeline-content .company {
+            color: var(--accent-bright);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        .timeline-content ul {
+            list-style: none;
+            color: var(--text-muted);
+        }
+
+        .timeline-content li {
+            padding-left: 1.5rem;
+            margin-bottom: 0.8rem;
+            position: relative;
+            line-height: 1.7;
+        }
+
+        .timeline-content li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent-bright);
+            font-weight: bold;
+        }
+
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 3rem auto 0;
+        }
+
+        .contact-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            text-decoration: none;
+            display: block;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent);
+            box-shadow: 0 12px 40px rgba(50, 130, 184, 0.15);
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(50, 130, 184, 0.1);
+            border: 1px solid rgba(50, 130, 184, 0.2);
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-card:hover .contact-icon {
+            background: rgba(50, 130, 184, 0.2);
+            transform: scale(1.1);
+        }
+
+        .contact-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+            color: var(--text);
+        }
+
+        .contact-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--secondary);
+            border-top: 1px solid var(--border);
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        footer p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 1.2rem;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero-stats {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline-item {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .timeline-date {
+                text-align: left;
+            }
+
+            .timeline-content::before {
+                display: none;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-pattern"></div>
+    <div class="bg-glow"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo">Mariam<span>.</span></div>
+            <ul>
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#competences">Compétences</a></li>
+                <li><a href="#projets">Projets</a></li>
+                <li><a href="#experience">Expérience</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="accueil" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-tag">Data Engineer · Rothschild & Co</div>
+                <h1>Mariam <span class="highlight">Douamba</span></h1>
+                <p class="hero-subtitle">
+                    Spécialisée en automatisation et ingénierie de données. J'orchestre des pipelines ETL complexes, 
+                    du scraping intelligent aux dashboards analytiques, pour transformer les processus métier.
+                </p>
+                <div class="hero-cta">
+                    <a href="#projets" class="btn btn-primary">
+                        📂 Voir mes projets
+                    </a>
+                    <a href="#contact" class="btn btn-secondary">
+                        📧 Me contacter
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">6+</div>
+                        <div class="stat-label">Années d'expertise</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">15+</div>
+                        <div class="stat-label">Technologies maîtrisées</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">70%</div>
+                        <div class="stat-label">Réduction des tâches manuelles</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="competences">
+        <div class="container">
+            <div class="section-header fade-in">
+                <div class="section-tag">Stack Technique</div>
+                <h2 class="section-title">Compétences</h2>
+                <p class="section-description">
+                    Une expertise complète en data engineering, de l'extraction à la visualisation
+                </p>
+            </div>
+
+            <div class="skills-grid">
+                <div class="skill-card fade-in">
+                    <div class="skill-icon">🤖</div>
+                    <h3>Scraping & Extraction</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Playwright</span>
+                        <span class="skill-tag">Selenium</span>
+                        <span class="skill-tag">BeautifulSoup</span>
+                        <span class="skill-tag">Scrapy</span>
+                        <span class="skill-tag">API REST</span>
+                    </div>
+                </div>
+
+                <div class="skill-card fade-in">
+                    <div class="skill-icon">⚙️</div>
+                    <h3>Orchestration & ETL</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Apache Airflow</span>
+                        <span class="skill-tag">Talend</span>
+                        <span class="skill-tag">Apache Spark</span>
+                        <span class="skill-tag">ETL/ELT</span>
+                    </div>
+                </div>
+
+                <div class="skill-card fade-in">
+                    <div class="skill-icon">💾</div>
+                    <h3>Bases de Données</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">PostgreSQL</span>
+                        <span class="skill-tag">MongoDB</span>
+                        <span class="skill-tag">Oracle</span>
+                        <span class="skill-tag">DuckDB</span>
+                        <span class="skill-tag">DBeaver</span>
+                    </div>
+                </div>
+
+                <div class="skill-card fade-in">
+                    <div class="skill-icon">📊</div>
+                    <h3>Visualisation & BI</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Streamlit</span>
+                        <span class="skill-tag">Marimo</span>
+                        <span class="skill-tag">Power BI</span>
+                        <span class="skill-tag">Plotly</span>
+                        <span class="skill-tag">Tableau</span>
+                    </div>
+                </div>
+
+                <div class="skill-card fade-in">
+                    <div class="skill-icon">🐳</div>
+                    <h3>DevOps & Cloud</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">Azure DevOps</span>
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">Render</span>
+                        <span class="skill-tag">CI/CD</span>
+                    </div>
+                </div>
+
+                <div class="skill-card fade-in">
+                    <div class="skill-icon">💻</div>
+                    <h3>Programmation</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">SQL</span>
+                        <span class="skill-tag">Pandas</span>
+                        <span class="skill-tag">Java</span>
+                        <span class="skill-tag">Scala</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projets">
+        <div class="container">
+            <div class="section-header fade-in">
+                <div class="section-tag">Portfolio</div>
+                <h2 class="section-title">Projets Réalisés</h2>
+                <p class="section-description">
+                    Des solutions d'automatisation concrètes avec impact mesurable sur la productivité
+                </p>
+            </div>
+
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card fade-in">
+                    <div class="project-header">
+                        <span class="project-company">Rothschild & Co</span>
+                        <h3>Scraping Automatisé SAP avec Playwright</h3>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-context">
+                            <h4>🎯 Contexte</h4>
+                            <p>Automatisation de l'extraction quotidienne de données comptables depuis l'interface SAP web pour éliminer 3h de saisie manuelle/jour par l'équipe comptabilité.</p>
+                        </div>
+                        
+                        <div class="project-context">
+                            <h4>🔧 Méthodologie</h4>
+                            <p>Script Python Playwright → Connexion SAP → Navigation pages → Extraction tableaux → Nettoyage données (validation formats, dédoublonnage) → Export PostgreSQL → Logging complet des erreurs.</p>
+                        </div>
+
+                        <div class="project-results">
+                            <h4>📈 Résultats</h4>
+                            <div class="result-items">
+                                <div class="result-item">-85% temps extraction (3h → 20min)</div>
+                                <div class="result-item">0 erreur de saisie manuelle</div>
+                                <div class="result-item">15K+ lignes extraites/jour</div>
+                            </div>
+                        </div>
+
+                        <div class="project-tech">
+                            <span class="tech-badge">Playwright</span>
+                            <span class="tech-badge">Python</span>
+                            <span class="tech-badge">PostgreSQL</span>
+                            <span class="tech-badge">Pandas</span>
+                            <span class="tech-badge">Docker</span>
+                        </div>
+
+                        <div class="project-links">
+                            <a href="javascript:void(0)" class="project-link">
+                                📂 GitHub
+                            </a>
+                            <a href="javascript:void(0)" class="project-link">
+                                📖 README
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card fade-in">
+                    <div class="project-header">
+                        <span class="project-company">Rothschild & Co</span>
+                        <h3>Pipeline ETL Airflow - Oracle EPM Automate</h3>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-context">
+                            <h4>🎯 Contexte</h4>
+                            <p>Orchestration de l'extraction, transformation et chargement des données Oracle EPM vers entrepôt de données centralisé pour reporting financier automatisé.</p>
+                        </div>
+                        
+                        <div class="project-context">
+                            <h4>🔧 Méthodologie</h4>
+                            <p>DAGs Airflow → EPM Automate CLI (extraction) → Transformation Python (normalisation, calculs, agrégations) → Chargement PostgreSQL → Validation qualité → Alertes Slack échecs.</p>
+                        </div>
+
+                        <div class="project-results">
+                            <h4>📈 Résultats</h4>
+                            <div class="result-items">
+                                <div class="result-item">Pipeline 100% automatisé (0 intervention manuelle)</div>
+                                <div class="result-item">Exécution quotidienne fiable (99.5% uptime)</div>
+                                <div class="result-item">Réduction délai reporting : 2 jours → 2h</div>
+                            </div>
+                        </div>
+
+                        <div class="project-tech">
+                            <span class="tech-badge">Airflow</span>
+                            <span class="tech-badge">Python</span>
+                            <span class="tech-badge">Oracle EPM</span>
+                            <span class="tech-badge">PostgreSQL</span>
+                            <span class="tech-badge">Docker</span>
+                        </div>
+
+                        <div class="project-links">
+                            <a href="javascript:void(0)" class="project-link">
+                                📂 GitHub
+                            </a>
+                            <a href="javascript:void(0)" class="project-link">
+                                🖼️ Screenshots
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card fade-in">
+                    <div class="project-header">
+                        <span class="project-company">Rothschild & Co</span>
+                        <h3>Dashboard Streamlit - Suivi Comptable Temps Réel</h3>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-context">
+                            <h4>🎯 Contexte</h4>
+                            <p>Création d'un dashboard interactif pour le suivi en temps réel des KPIs comptables (écritures, rapprochements, anomalies) accessible à toute la direction financière.</p>
+                        </div>
+                        
+                        <div class="project-context">
+                            <h4>🔧 Méthodologie</h4>
+                            <p>Streamlit + Plotly → Connexion PostgreSQL → Requêtes SQL optimisées → Visualisations interactives (graphiques, tables, métriques) → Filtres dynamiques → Déploiement Render avec authentification.</p>
+                        </div>
+
+                        <div class="project-results">
+                            <h4>📈 Résultats</h4>
+                            <div class="result-items">
+                                <div class="result-item">25 utilisateurs quotidiens</div>
+                                <div class="result-item">-60% temps analyse manuelle</div>
+                                <div class="result-item">Détection anomalies en temps réel</div>
+                            </div>
+                        </div>
+
+                        <div class="project-tech">
+                            <span class="tech-badge">Streamlit</span>
+                            <span class="tech-badge">Python</span>
+                            <span class="tech-badge">Plotly</span>
+                            <span class="tech-badge">PostgreSQL</span>
+                            <span class="tech-badge">Render</span>
+                        </div>
+
+                        <div class="project-links">
+                            <a href="javascript:void(0)" class="project-link">
+                                🔗 Démo Live
+                            </a>
+                            <a href="javascript:void(0)" class="project-link">
+                                📂 GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="project-card fade-in">
+                    <div class="project-header">
+                        <span class="project-company">Rothschild & Co</span>
+                        <h3>Environnement Dockerisé DBeaver + PostgreSQL</h3>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-context">
+                            <h4>🎯 Contexte</h4>
+                            <p>Standardisation des environnements de développement data pour l'équipe (10 personnes) afin d'éliminer les problèmes de configuration et accélérer l'onboarding.</p>
+                        </div>
+                        
+                        <div class="project-context">
+                            <h4>🔧 Méthodologie</h4>
+                            <p>Docker Compose multi-conteneurs → PostgreSQL + DBeaver + drivers Oracle/SAP → Scripts initialisation BDD → Volumes persistants → Documentation complète déploiement → CI/CD Azure DevOps.</p>
+                        </div>
+
+                        <div class="project-results">
+                            <h4>📈 Résultats</h4>
+                            <div class="result-items">
+                                <div class="result-item">Setup environnement : 2 jours → 15 minutes</div>
+                                <div class="result-item">100% cohérence environnements dev</div>
+                                <div class="result-item">Adoption par toute l'équipe data</div>
+                            </div>
+                        </div>
+
+                        <div class="project-tech">
+                            <span class="tech-badge">Docker</span>
+                            <span class="tech-badge">Docker Compose</span>
+                            <span class="tech-badge">DBeaver</span>
+                            <span class="tech-badge">PostgreSQL</span>
+                            <span class="tech-badge">Azure DevOps</span>
+                        </div>
+
+                        <div class="project-links">
+                            <a href="javascript:void(0)" class="project-link">
+                                📂 GitHub
+                            </a>
+                            <a href="javascript:void(0)" class="project-link">
+                                📖 Documentation
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 5 -->
+                <div class="project-card fade-in">
+                    <div class="project-header">
+                        <span class="project-company">Orange</span>
+                        <h3>Scraping API Mobile Money vers PostgreSQL</h3>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-context">
+                            <h4>🎯 Contexte</h4>
+                            <p>Collecte automatisée des transactions Mobile Money depuis APIs partenaires pour analyse B2B (500K+ transactions/jour).</p>
+                        </div>
+                        
+                        <div class="project-context">
+                            <h4>🔧 Méthodologie</h4>
+                            <p>Python requests → Pagination automatique → Gestion retry/timeout → Validation schéma JSON → Déduplication → Insertion PostgreSQL batch → Monitoring Grafana → Scheduling cron.</p>
+                        </div>
+
+                        <div class="project-results">
+                            <h4>📈 Résultats</h4>
+                            <div class="result-items">
+                                <div class="result-item">500K+ transactions/jour collectées</div>
+                                <div class="result-item">Latence moyenne < 5 minutes</div>
+                                <div class="result-item">99.8% taux de disponibilité</div>
+                            </div>
+                        </div>
+
+                        <div class="project-tech">
+                            <span class="tech-badge">Python</span>
+                            <span class="tech-badge">PostgreSQL</span>
+                            <span class="tech-badge">API REST</span>
+                            <span class="tech-badge">Pandas</span>
+                            <span class="tech-badge">DBeaver</span>
+                        </div>
+
+                        <div class="project-links">
+                            <a href="javascript:void(0)" class="project-link">
+                                📂 GitHub
+                            </a>
+                            <a href="javascript:void(0)" class="project-link">
+                                📖 README
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 6 -->
+                <div class="project-card fade-in">
+                    <div class="project-header">
+                        <span class="project-company">Orange</span>
+                        <h3>Data Warehouse B2B avec DuckDB</h3>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-context">
+                            <h4>🎯 Contexte</h4>
+                            <p>Centralisation de données financières/comportementales dispersées (10+ sources) pour analyse B2B Orange Money avec performances analytiques optimales.</p>
+                        </div>
+                        
+                        <div class="project-context">
+                            <h4>🔧 Méthodologie</h4>
+                            <p>Architecture 3 couches (staging/ODS/DWH) → ETL Talend → Modélisation dimensionnelle (schéma étoile) → DuckDB pour requêtes OLAP → Optimisation indexes → Power BI connexion directe.</p>
+                        </div>
+
+                        <div class="project-results">
+                            <h4>📈 Résultats</h4>
+                            <div class="result-items">
+                                <div class="result-item">3M+ clients consolidés</div>
+                                <div class="result-item">Requêtes 10x plus rapides</div>
+                                <div class="result-item">Source unique de vérité pour B2B</div>
+                            </div>
+                        </div>
+
+                        <div class="project-tech">
+                            <span class="tech-badge">DuckDB</span>
+                            <span class="tech-badge">Talend</span>
+                            <span class="tech-badge">SQL</span>
+                            <span class="tech-badge">Oracle</span>
+                            <span class="tech-badge">Power BI</span>
+                        </div>
+
+                        <div class="project-links">
+                            <a href="javascript:void(0)" class="project-link">
+                                📂 Documentation
+                            </a>
+                            <a href="javascript:void(0)" class="project-link">
+                                🖼️ Architecture
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 7 -->
+                <div class="project-card fade-in">
+                    <div class="project-header">
+                        <span class="project-company">CGI Canada</span>
+                        <h3>Dashboard Marimo - Analytics Marketing</h3>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-context">
+                            <h4>🎯 Contexte</h4>
+                            <p>Création d'un notebook interactif Marimo pour exploration et analyse des campagnes marketing avec visualisations temps réel pour l'équipe analytics.</p>
+                        </div>
+                        
+                        <div class="project-context">
+                            <h4>🔧 Méthodologie</h4>
+                            <p>Marimo notebooks → Connexion SQL Server → Analyses exploratoires interactives → Graphiques Plotly/Altair → Widgets de filtrage → Export rapports PDF → Déploiement cloud.</p>
+                        </div>
+
+                        <div class="project-results">
+                            <h4>📈 Résultats</h4>
+                            <div class="result-items">
+                                <div class="result-item">-50% temps analyses ad-hoc</div>
+                                <div class="result-item">12 analystes utilisateurs réguliers</div>
+                                <div class="result-item">Insights actionnables quotidiens</div>
+                            </div>
+                        </div>
+
+                        <div class="project-tech">
+                            <span class="tech-badge">Marimo</span>
+                            <span class="tech-badge">Python</span>
+                            <span class="tech-badge">Plotly</span>
+                            <span class="tech-badge">SQL Server</span>
+                            <span class="tech-badge">Pandas</span>
+                        </div>
+
+                        <div class="project-links">
+                            <a href="javascript:void(0)" class="project-link">
+                                🔗 Demo
+                            </a>
+                            <a href="javascript:void(0)" class="project-link">
+                                📂 GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 8 -->
+                <div class="project-card fade-in">
+                    <div class="project-header">
+                        <span class="project-company">CGI Canada</span>
+                        <h3>Tableaux de Bord Power BI - KPIs Multi-canaux</h3>
+                    </div>
+                    <div class="project-content">
+                        <div class="project-context">
+                            <h4>🎯 Contexte</h4>
+                            <p>Centralisation des métriques marketing multi-canaux (email, social, paid ads) dans des dashboards Power BI pour direction et équipes opérationnelles.</p>
+                        </div>
+                        
+                        <div class="project-context">
+                            <h4>🔧 Méthodologie</h4>
+                            <p>Modélisation relationnelle → Mesures DAX complexes (CAC, LTV, ROI) → Drill-down hiérarchique → Bookmarks navigation → RLS sécurité → Publication Power BI Service → Mobile layout.</p>
+                        </div>
+
+                        <div class="project-results">
+                            <h4>📈 Résultats</h4>
+                            <div class="result-items">
+                                <div class="result-item">-30% CAC grâce aux insights</div>
+                                <div class="result-item">Optimisation budget 200K€</div>
+                                <div class="result-item">50+ utilisateurs quotidiens</div>
+                            </div>
+                        </div>
+
+                        <div class="project-tech">
+                            <span class="tech-badge">Power BI</span>
+                            <span class="tech-badge">DAX</span>
+                            <span class="tech-badge">SQL Server</span>
+                            <span class="tech-badge">Power Query</span>
+                            <span class="tech-badge">Azure</span>
+                        </div>
+
+                        <div class="project-links">
+                            <a href="javascript:void(0)" class="project-link">
+                                🖼️ Screenshots
+                            </a>
+                            <a href="javascript:void(0)" class="project-link">
+                                📖 Documentation
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience">
+        <div class="container">
+            <div class="section-header fade-in">
+                <div class="section-tag">Parcours</div>
+                <h2 class="section-title">Expérience Professionnelle</h2>
+                <p class="section-description">
+                    6+ années d'expertise en data engineering et analyse dans des environnements exigeants
+                </p>
+            </div>
+
+            <div class="experience-content">
+                <div class="timeline-item fade-in">
+                    <div class="timeline-date">
+                        <span>2025 - Présent</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Data Engineer</h3>
+                        <div class="company">Rothschild & Co - Direction Comptabilité</div>
+                        <ul>
+                            <li>Automatisation complète des extractions SAP et Oracle EPM via scraping (Playwright/Selenium)</li>
+                            <li>Orchestration de pipelines ETL avec Apache Airflow pour flux financiers quotidiens</li>
+                            <li>Développement de dashboards Streamlit pour suivi temps réel des KPIs comptables</li>
+                            <li>Mise en place d'environnements Docker standardisés pour l'équipe data (PostgreSQL, DBeaver)</li>
+                            <li>Réduction de 70% du temps consacré aux tâches répétitives</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item fade-in">
+                    <div class="timeline-date">
+                        <span>2023 - 2024</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Data Analyste - Développeur BI</h3>
+                        <div class="company">CGI Canada</div>
+                        <ul>
+                            <li>Conception et développement de solutions BI innovantes (Power BI, Tableau)</li>
+                            <li>Création de dashboards Marimo pour analyses marketing exploratoires</li>
+                            <li>Développement de requêtes SQL complexes et optimisation des performances</li>
+                            <li>Automatisation des campagnes marketing basées sur données comportementales</li>
+                            <li>Traduction des besoins métiers en spécifications techniques</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item fade-in">
+                    <div class="timeline-date">
+                        <span>2019 - 2023</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Data Analyste - Data Scientiste</h3>
+                        <div class="company">Orange</div>
+                        <ul>
+                            <li>Création d'un Data Warehouse B2B avec DuckDB (3M+ clients, 10+ sources)</li>
+                            <li>Scraping automatisé des transactions Mobile Money via APIs (500K+/jour)</li>
+                            <li>Segmentation clients et modélisation prédictive (détection fraude, RFM)</li>
+                            <li>Développement de dashboards Power BI/Tableau pour direction</li>
+                            <li>Stream Leader : supervision KPIs et performances services B2B</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-header fade-in">
+                <div class="section-tag">Connectons-nous</div>
+                <h2 class="section-title">Contact & Réseaux</h2>
+                <p class="section-description">
+                    Discutons de vos projets data et de comment je peux vous aider à automatiser vos processus
+                </p>
+            </div>
+
+            <div class="contact-grid">
+                <a href="https://www.linkedin.com/in/mariam-douamba" target="_blank" class="contact-card fade-in">
+                    <div class="contact-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                            <rect x="2" y="9" width="4" height="12"/>
+                            <circle cx="4" cy="4" r="2"/>
+                        </svg>
+                    </div>
+                    <h3>LinkedIn</h3>
+                    <p>Parcours professionnel détaillé</p>
+                </a>
+
+                <a href="https://github.com/mariam-douamba" target="_blank" class="contact-card fade-in">
+                    <div class="contact-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                        </svg>
+                    </div>
+                    <h3>GitHub</h3>
+                    <p>Code source de mes projets</p>
+                </a>
+
+                <a href="mailto:myriam.douamba@gmail.com" class="contact-card fade-in">
+                    <div class="contact-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                            <polyline points="22,6 12,13 2,6"/>
+                        </svg>
+                    </div>
+                    <h3>Email</h3>
+                    <p>myriam.douamba@gmail.com</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Mariam Douamba - Data Engineer. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll with error handling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                
+                // Ignore if href is just '#' or empty or javascript:void
+                if (!href || href === '#' || href.length <= 1 || href.startsWith('javascript:')) {
+                    e.preventDefault();
+                    return;
+                }
+                
+                e.preventDefault();
+                
+                try {
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                } catch (error) {
+                    console.log('Invalid selector:', href);
+                }
+            });
+        });
+
+        // Scroll reveal animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(element => {
+            observer.observe(element);
+        });
+    </script>
+</body>
+</html>
